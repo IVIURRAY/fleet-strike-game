@@ -1,0 +1,14 @@
+body{background:#010108}
+.topbar,.bottom{background:linear-gradient(180deg,rgba(3,3,16,.98),rgba(8,3,24,.94));border-color:#463078;box-shadow:0 0 28px #661dff44}
+.brand-mark{color:#8eff63;border-color:#8eff63;filter:drop-shadow(0 0 8px #62ff42)}
+.brand{color:#eaffff;text-shadow:0 0 12px #6cecff}
+.timer{color:#fff;text-shadow:0 0 8px #ff4fff,0 0 20px #684cff}
+.wave,.income{color:#9dff68;text-shadow:0 0 7px #52ff44}
+.room-chip{background:#080317e8;border-color:#9b4dff;color:#d5b8ff;box-shadow:0 0 15px #9b4dff55}
+.card{background:linear-gradient(145deg,#0b071d,#05030e);border-color:#3c2860}
+.card:hover:not(:disabled),.card.selected{box-shadow:0 0 12px var(--color),inset 0 0 24px color-mix(in srgb,var(--color) 14%,transparent)}
+.rowbtn{background:linear-gradient(90deg,#09051d,#03020c);border-color:#3c2860}
+.rowbtn:hover,.rowbtn.active{border-color:#c65cff;background:linear-gradient(90deg,#21103b,#08051c);box-shadow:inset 3px 0 #cc5cff,0 0 10px #8d34ff55}
+.gold{color:#fff06a;text-shadow:0 0 10px #ffad32}
+.panel{background:linear-gradient(145deg,#100629,#03020c);border-color:#994dff;box-shadow:0 0 60px #6b24ff55,0 30px 80px #000}
+.primary{background:#8eff63;border-color:#8eff63;box-shadow:0 0 15px #5cff41}
