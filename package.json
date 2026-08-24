@@ -1,0 +1,27 @@
+{
+  "name": "fleet-strike",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite\"",
+    "build": "tsc -b && vite build",
+    "start": "tsx server/index.ts",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "@pixi/particle-emitter": "^5.0.8",
+    "express": "^5.1.0",
+    "pixi.js": "^8.12.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "@types/ws": "^8.18.1",
+    "concurrently": "^9.2.1",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3"
+  }
+}
