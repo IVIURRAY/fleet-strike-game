@@ -30,9 +30,11 @@ function placedShipGraphic(type:ShipType,owner:0|1,xNorm:number,yNorm:number,w:n
 function render(){
   drawSea();world.removeChildren();if(!state)return;const w=app.screen.width,h=app.screen.height;
   for(const side of [0,1] as const){
-    const x=side===0?22:w-22,isMine=side===player;
-    const baseColor=isMine?0x6cecff:0xff4f9a,base=new Graphics();base.blendMode='add';base.roundRect(x-21,h*.08-6,42,h*.84+12,8).fill({color:baseColor,alpha:.035}).roundRect(x-15,h*.08,30,h*.84,4).fill({color:baseColor,alpha:.08}).stroke({color:baseColor,width:2,alpha:.95});for(let by=h*.12;by<h*.9;by+=32)base.moveTo(x-10,by).lineTo(x,by-8).lineTo(x+10,by).lineTo(x,by+8).closePath().stroke({color:baseColor,width:1,alpha:.38});world.addChild(base);
-    const label=new Text({text:isMine?'YOUR STAGING':'ENEMY STAGING',style:new TextStyle({fontFamily:'Inter',fontSize:9,fontWeight:'600',fill:isMine?0x72d9ee:0xff8a76,letterSpacing:1})});label.anchor.set(side===0?0:1,.5);label.x=side===0?47:w-47;label.y=13;world.addChild(label);
+    const x=side===0?30:w-30,y=h/2,isMine=side===player,baseColor=isMine?0x6cecff:0xff4f9a,t=performance.now()/900;
+    const nexus=new Graphics();nexus.blendMode='add';nexus.circle(x,y,44+Math.sin(t)*3).fill({color:baseColor,alpha:.035}).circle(x,y,31).fill({color:baseColor,alpha:.07}).stroke({color:baseColor,width:2,alpha:.8}).circle(x,y,13).fill({color:0xffffff,alpha:.7}).stroke({color:baseColor,width:4,alpha:1});
+    for(let ring=0;ring<2;ring++){const radius=22+ring*14,turn=t*(ring?-.7:1);for(let i=0;i<4;i++){const a=turn+i*Math.PI/2,b=turn+(i+1)*Math.PI/2;nexus.moveTo(x+Math.cos(a)*radius,y+Math.sin(a)*radius).lineTo(x+Math.cos(b)*radius,y+Math.sin(b)*radius).stroke({color:ring?0x9d5cff:baseColor,width:ring?1:2,alpha:.8})}}
+    world.addChild(nexus);
+    const label=new Text({text:isMine?'YOUR NEXUS':'ENEMY NEXUS',style:new TextStyle({fontFamily:'Inter',fontSize:9,fontWeight:'600',fill:isMine?0x72d9ee:0xff8a76,letterSpacing:1})});label.anchor.set(.5,.5);label.x=x;label.y=y+57;world.addChild(label);
     const zoneX=side===0?w*.04:w*.62,zoneW=w*.34;
     world.addChild(new Graphics().rect(zoneX,24,zoneW,h-48).fill({color:isMine?0x55d9ff:0xff795f,alpha:isMine&&placementArmed?.055:.025}).stroke({color:isMine?0x55d9ff:0xff795f,width:1,alpha:isMine?.25:.12}));
     for(const p of state.players[side].placements)world.addChild(placedShipGraphic(p.type,side,p.x,p.y,w,h));

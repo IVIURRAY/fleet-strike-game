@@ -19,3 +19,13 @@
   .card{height:145px}
   .rowbtn{height:38px}
 }
+
+/* Free placement supersedes the old three-row formation summary. */
+.rows{display:none}
+.shell{grid-template-rows:68px 1fr 196px}
+.bottom{grid-template-columns:210px 1fr;justify-content:center}
+.cards{justify-content:center}
+@media(max-width:1050px){
+  .shell{grid-template-rows:58px 1fr 180px}
+  .bottom{grid-template-columns:125px 1fr}
+}
