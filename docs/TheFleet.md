@@ -1,4 +1,10 @@
-# Fleet building, deployment lanes, and wave spawning
+# The fleet
+
+Units spawn automatically like in league of legends and head towards the enemy side of the map
+
+You can choose where to foucs your fleet. You cna move them around the solar systme
+
+Players can construct unit producing buildings on their captured planets.
 
 Auto battler mechanism makes it easier to control large armies. Rather than building units all the time you make things that produce units every wave
 
@@ -12,3 +18,5 @@ On the plannets, we need ot be able to build upgrade that produce units
 - when they meet up, they enter into a dog fight
 - You cna fight over a plannet, in which case the home planet supports the defending fleet.
 - Maybe we need to deploy ground troops from the fleet in order the capture a planet and this is where manpower comes into it
+
+Do the ships, need fueling?
