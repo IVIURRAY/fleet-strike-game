@@ -1,0 +1,291 @@
+/**
+ * Reusable components: buttons, cards, panels, bars.
+ *
+ * Source: docs/UI_Design_System.md
+ */
+
+/* --- Buttons -------------------------------------------------------------- */
+
+.btn {
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+  background: transparent;
+  color: inherit;
+}
+
+.btn-primary {
+  background: var(--color-green);
+  border-color: var(--color-green);
+  color: var(--bg-space);
+  box-shadow: 0 0 15px var(--color-green-glow);
+}
+
+.btn-primary:hover:not([disabled]) {
+  box-shadow: 0 0 25px var(--color-green-glow);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active:not([disabled]) {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  border-color: var(--color-cyan);
+  color: var(--color-cyan);
+  box-shadow: inset 0 0 10px rgba(79, 203, 233, 0.27);
+}
+
+.btn-secondary:hover:not([disabled]) {
+  background: rgba(79, 203, 233, 0.13);
+  box-shadow: 0 0 20px var(--color-cyan);
+  transform: translateY(-2px);
+}
+
+.btn[disabled] {
+  transform: none;
+  pointer-events: none;
+}
+
+/* --- Inputs --------------------------------------------------------------- */
+
+.input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border-magenta);
+  border-radius: var(--radius-md);
+  color: #eaffff;
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: border-color var(--transition-base);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-cyan);
+  box-shadow: 0 0 14px rgba(79, 203, 233, 0.4);
+}
+
+.input::placeholder {
+  color: #4a5568;
+  letter-spacing: 2px;
+}
+
+/* --- Cards ---------------------------------------------------------------- */
+
+.card {
+  background: var(--gradient-card);
+  border: 1px solid var(--border-magenta);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  contain: layout style paint;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  display: grid;
+  gap: 2px;
+}
+
+.card:hover:not([disabled]) {
+  border-color: var(--color, var(--color-cyan));
+  box-shadow: 0 0 12px var(--color, var(--color-cyan));
+  transform: translateY(-2px);
+}
+
+.card.selected {
+  border-color: var(--color, var(--color-cyan));
+  box-shadow: 0 0 20px var(--color, var(--color-cyan));
+}
+
+.card[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+  transform: none;
+}
+
+.card-name {
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color, var(--color-cyan));
+}
+
+.card-cost {
+  font-size: 11px;
+  font-weight: 500;
+  color: #98a6bd;
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.card-meta {
+  font-size: 10px;
+  color: #6b7a91;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Per-class accent colours */
+.card.scout {
+  --color: var(--color-cyan);
+}
+.card.soldier {
+  --color: var(--color-green);
+}
+.card.heavy {
+  --color: var(--color-gold-bright);
+}
+.card.medic {
+  --color: var(--color-pink);
+}
+.card.engineer {
+  --color: #7ce8c0;
+}
+.card.bomber {
+  --color: #ff8a5c;
+}
+.card.sniper {
+  --color: var(--color-magenta);
+}
+.card.economy {
+  --color: var(--color-gold);
+}
+.card.defense {
+  --color: var(--color-magenta-glow);
+}
+
+/* --- Panels --------------------------------------------------------------- */
+
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: var(--z-backdrop);
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+
+.panel {
+  background: var(--gradient-panel);
+  border: 1px solid var(--color-magenta-glow);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow:
+    0 0 60px rgba(107, 36, 255, 0.33),
+    0 30px 80px #000;
+  z-index: var(--z-panel);
+}
+
+.panel h1 {
+  font-size: 34px;
+  margin-bottom: var(--space-2);
+}
+
+.panel .tagline {
+  color: #8b9ab1;
+  font-size: 13px;
+  margin-bottom: var(--space-6);
+}
+
+.panel-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.panel-section {
+  margin-bottom: var(--space-5);
+}
+
+/* --- Health and progress bars -------------------------------------------- */
+
+.hpbar {
+  width: 310px;
+  height: 11px;
+  background: #102632;
+  border: 1px solid #315363;
+  transform: skewX(-18deg);
+  overflow: hidden;
+}
+
+.hpfill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-cyan-glow), #70e6f7);
+  transition: width 0.25s ease-out;
+}
+
+.enemy .hpfill {
+  margin-left: auto;
+  background: linear-gradient(90deg, #fb6c54, #ff9b67);
+}
+
+.progress {
+  height: 4px;
+  background: #0e1420;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-cyan);
+  transition: width 0.2s linear;
+}
+
+/* --- Toast -------------------------------------------------------------- */
+
+.toast-stack {
+  position: absolute;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  gap: var(--space-2);
+  z-index: var(--z-toast);
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(8, 3, 23, 0.94);
+  border: 1px solid var(--color-magenta-glow);
+  color: #d5b8ff;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(155, 77, 255, 0.33);
+  animation: fade-in 0.2s ease-out;
+}
+
+.toast.error {
+  border-color: var(--color-danger);
+  color: var(--color-danger-bright);
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.33);
+}
+
+.error-text {
+  color: var(--color-danger-bright);
+  text-shadow: 0 0 8px var(--color-danger);
+  font-size: 12px;
+  min-height: 16px;
+}

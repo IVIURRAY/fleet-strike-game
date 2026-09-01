@@ -1,0 +1,83 @@
+/**
+ * Design tokens.
+ *
+ * Source: docs/UI_Design_System.md. The document defines four near-identical
+ * greens and applies its --gradient-top token to the bottom panel; both are
+ * normalised here so each token has one meaning.
+ */
+
+:root {
+  /* Neon cyan - brand and player one */
+  --color-cyan: #4fcbe9;
+  --color-cyan-bright: #67ddf7;
+  --color-cyan-glow: #32bcdc;
+
+  /* Neon magenta - accents and player two */
+  --color-magenta: #c65cff;
+  --color-magenta-bright: #cc5cff;
+  --color-magenta-glow: #9b4dff;
+
+  /* Neon green - success and income */
+  --color-green: #8eff63;
+  --color-green-bright: #62ff42;
+  --color-green-glow: #52ff44;
+
+  /* Gold - resources */
+  --color-gold: #fff06a;
+  --color-gold-bright: #ffad32;
+
+  --color-pink: #ff4fff;
+  --color-purple: #684cff;
+  --color-danger: #ff4444;
+  --color-danger-bright: #ff6666;
+
+  /* Semantic aliases used by focus rings and shared components */
+  --color-primary: var(--color-cyan);
+  --color-accent: var(--color-magenta);
+
+  /* Backgrounds */
+  --bg-space: #010108;
+  --bg-dark: #03020c;
+  --bg-dark-blue: #020b11;
+  --bg-panel: #100629;
+  --bg-card: #0b071d;
+
+  /* Gradients */
+  --gradient-topbar: linear-gradient(180deg, rgba(4, 18, 27, 0.98), rgba(4, 18, 27, 0.82));
+  --gradient-bottom: linear-gradient(180deg, rgba(3, 3, 16, 0.98), rgba(8, 3, 24, 0.94));
+  --gradient-card: linear-gradient(145deg, #0b071d, #05030e);
+  --gradient-panel: linear-gradient(145deg, #100629, #03020c);
+
+  /* Borders */
+  --border-cyan: #1e5263;
+  --border-magenta: #3c2860;
+  --border-bright: #463078;
+
+  /* Spacing scale - not tokenised in the source doc, added for consistency */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 22px;
+  --space-6: 28px;
+
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --transition-fast: 0.15s;
+  --transition-base: 0.2s;
+
+  --z-hud: 10;
+  --z-backdrop: 99;
+  --z-panel: 100;
+  --z-toast: 200;
+}
+
+/* Accessibility: honour the OS high contrast preference */
+body.high-contrast {
+  --color-cyan: #5ff0ff;
+  --color-green: #a0ff80;
+  --color-gold: #ffff80;
+}
