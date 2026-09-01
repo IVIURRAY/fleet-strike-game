@@ -111,10 +111,18 @@
   overflow: hidden;
 }
 
-.arena canvas {
+/*
+ * Direct child only. This is the PixiJS render surface, which PixiJS sizes
+ * itself via resizeTo + autoDensity (it writes width/height inline).
+ *
+ * This MUST NOT be a descendant selector. The minimap is also a <canvas>, and
+ * `.arena canvas` (specificity 0,1,1) outranks `.minimap` (0,1,0) - it stretched
+ * the minimap's 260x58 box over the entire arena and also defeated its
+ * `display: none` in the <=1024px breakpoint, hiding the game behind a hugely
+ * upscaled minimap.
+ */
+.arena > canvas {
   display: block;
-  width: 100%;
-  height: 100%;
   touch-action: none;
 }
 
@@ -349,8 +357,10 @@
   position: absolute;
   bottom: 12px;
   left: 12px;
-  width: 260px;
-  height: 58px;
+  /* 280x80 is exactly the world's 21000x6000 (3.5:1) aspect, so drawMinimap's
+     scaleX and scaleY match and planets stay round instead of squashed. */
+  width: 280px;
+  height: 80px;
   background: rgba(3, 2, 12, 0.8);
   border: 1px solid var(--border-cyan);
   border-radius: var(--radius-sm);

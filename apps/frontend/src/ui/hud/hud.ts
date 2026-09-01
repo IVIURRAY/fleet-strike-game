@@ -64,7 +64,7 @@ export function createHud(roomCode: string): HudElements {
     <main class="arena" id="arena">
       <div class="arena-overlay" id="overlay">
         <div class="room-chip" id="room-chip">ROOM: ${escapeHtml(roomCode)}</div>
-        <canvas class="minimap clickable" id="minimap" width="520" height="116"></canvas>
+        <canvas class="minimap clickable" id="minimap" width="560" height="160"></canvas>
         <div class="perf-chip" id="perf-chip"></div>
         <div class="toast-stack" id="toast-stack"></div>
       </div>

@@ -1,7 +1,9 @@
+import { readFileSync } from 'node:fs';
+
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import type { BuildingState, PlanetState, PlayerView } from '@fleet-strike/types';
-import { BUILDINGS, PLANETS } from '@fleet-strike/config';
+import { BUILDINGS, PLANETS, WORLD_HEIGHT, WORLD_WIDTH } from '@fleet-strike/config';
 
 import { GameStore } from '../../game/state/store';
 import { renderBuildPanel } from './build-panel';
@@ -10,6 +12,9 @@ import { createHud, showToast } from './hud';
 import type { HudElements } from './hud';
 import { drawMinimap, minimapToWorld } from './minimap';
 import { updateHud } from './update-hud';
+
+// Vitest runs with apps/frontend as its root.
+const HUD_CSS = readFileSync('src/styles/hud.css', 'utf8');
 
 function playerView(overrides: Partial<PlayerView> = {}): PlayerView {
   return {
@@ -393,5 +398,64 @@ describe('minimap', () => {
     const world = minimapToWorld(canvas, 0, 0);
     expect(world.x).toBe(0);
     expect(world.y).toBe(0);
+  });
+});
+
+describe('arena canvas layering', () => {
+  // These assert the stylesheet text rather than computed styles on purpose.
+  // jsdom's getComputedStyle does not implement CSS specificity - it applies the
+  // last matching rule in source order - so it reports `.minimap`'s own width
+  // even when a higher-specificity `.arena canvas` rule would beat it in a real
+  // browser. A cascade test here would pass while the page stayed broken, so the
+  // selector shape is guarded directly.
+  const css = HUD_CSS;
+
+  it('scopes the render surface rule to .arena direct children', () => {
+    expect(css).toContain('.arena > canvas');
+  });
+
+  it('never uses a bare .arena canvas descendant selector', () => {
+    // The minimap is also a <canvas> inside .arena (nested in .arena-overlay).
+    // `.arena canvas` is specificity 0,1,1 and outranks `.minimap` at 0,1,0, so
+    // it stretched the minimap over the whole arena and hid the game behind it.
+    // It also defeated `.minimap { display: none }` in the <=1024px breakpoint.
+    expect(css).not.toMatch(/\.arena\s+canvas\s*\{/);
+  });
+
+  it('does not force width or height onto the render surface', () => {
+    // PixiJS owns sizing via resizeTo + autoDensity, which it writes inline.
+    const rule = /\.arena > canvas \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(rule).not.toMatch(/\bwidth\s*:/);
+    expect(rule).not.toMatch(/\bheight\s*:/);
+  });
+
+  it('keeps the minimap sized by its own rule', () => {
+    const rule = /\.minimap \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(rule).toMatch(/width:\s*280px/);
+    expect(rule).toMatch(/height:\s*80px/);
+  });
+});
+
+describe('minimap aspect ratio', () => {
+  const worldAspect = WORLD_WIDTH / WORLD_HEIGHT;
+
+  it('matches the world aspect in its backing buffer', () => {
+    // drawMinimap derives scaleX and scaleY independently, so a mismatch here
+    // silently squashes the map and makes planets elliptical.
+    const hud = createHud('ABCDEF');
+    expect(hud.minimap.width / hud.minimap.height).toBeCloseTo(worldAspect, 5);
+  });
+
+  it('matches the world aspect in its CSS box', () => {
+    const rule = /\.minimap \{([^}]*)\}/.exec(HUD_CSS)?.[1] ?? '';
+    const width = Number(/width:\s*(\d+)px/.exec(rule)?.[1]);
+    const height = Number(/height:\s*(\d+)px/.exec(rule)?.[1]);
+    expect(width / height).toBeCloseTo(worldAspect, 5);
+  });
+
+  it('supersamples 2x so the minimap stays crisp on retina', () => {
+    const hud = createHud('ABCDEF');
+    expect(hud.minimap.width).toBe(280 * 2);
+    expect(hud.minimap.height).toBe(80 * 2);
   });
 });
