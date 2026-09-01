@@ -52,9 +52,18 @@ export default tseslint.config(
     // docs, not logic; splitting a stat block across files to satisfy a line
     // count would make the numbers harder to review against the source
     // document, which is the opposite of the rule's intent.
-    files: ['packages/config/src/ships.ts', 'packages/config/src/buildings-*.ts'],
+    files: ['**/config/src/ships.ts', '**/config/src/buildings-*.ts'],
     rules: {
       'max-lines': 'off',
+    },
+  },
+  {
+    // Development-only harness. It is a single linear script whose value is in
+    // reading top to bottom, so the module-size rule does not apply.
+    files: ['**/playtest.ts'],
+    rules: {
+      'max-lines': 'off',
+      'no-console': 'off',
     },
   }
 );

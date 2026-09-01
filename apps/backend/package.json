@@ -12,7 +12,8 @@
     "test": "vitest run --passWithNoTests",
     "test:coverage": "vitest run --coverage --passWithNoTests",
     "lint": "eslint src",
-    "clean": "rm -rf dist .turbo *.tsbuildinfo"
+    "clean": "rm -rf dist .turbo *.tsbuildinfo",
+    "playtest": "tsx src/playtest.ts"
   },
   "dependencies": {
     "@fleet-strike/config": "workspace:*",
