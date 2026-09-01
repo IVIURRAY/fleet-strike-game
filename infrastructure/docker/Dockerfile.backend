@@ -1,8 +1,14 @@
 # Backend image.
 #
-# Multi-stage: the builder installs the whole workspace so Turbo can build the
-# package dependency graph, then only the bundled server and its runtime
-# dependencies are copied into the final image.
+# The builder does a full workspace install (it is discarded, so its size does
+# not matter) and bundles the server with esbuild.
+#
+# The runtime stage does NOT copy pnpm's node_modules. Those are a tree of
+# relative symlinks into a `.pnpm` store, which is fragile to relocate across
+# stages. Instead a minimal manifest is derived from the backend's own
+# package.json - dropping the @fleet-strike/* entries, which esbuild has already
+# inlined - and installed flat with npm. That leaves only the four real runtime
+# dependencies in the final image.
 
 FROM node:20-alpine AS builder
 
@@ -10,8 +16,7 @@ RUN corepack enable
 
 WORKDIR /app
 
-# Copy the manifests first so dependency installation caches independently of
-# source changes.
+# Manifests first so dependency installation caches independently of source.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.base.json ./
 COPY packages/types/package.json ./packages/types/
 COPY packages/config/package.json ./packages/config/
@@ -26,26 +31,35 @@ RUN pnpm install --frozen-lockfile
 COPY packages ./packages
 COPY apps/backend ./apps/backend
 
-# The backend does not depend on the renderer, so only its own graph is built.
 RUN pnpm turbo run build --filter=@fleet-strike/backend
 
-# Reduce node_modules to production dependencies only.
-RUN pnpm prune --prod
+# Derive the runtime manifest. Workspace packages are already bundled into
+# dist/index.js, so only third-party dependencies need installing.
+RUN node -e "\
+const pkg = require('./apps/backend/package.json'); \
+const deps = Object.fromEntries( \
+  Object.entries(pkg.dependencies).filter(([name]) => !name.startsWith('@fleet-strike/')) \
+); \
+require('fs').writeFileSync('/tmp/package.json', JSON.stringify({ \
+  name: 'fleet-strike-backend', version: pkg.version, private: true, \
+  type: 'module', dependencies: deps \
+}, null, 2)); \
+"
 
 
 FROM node:20-alpine AS runtime
 
-RUN corepack enable
-
-# Run unprivileged. The node image already provides a `node` user.
 ENV NODE_ENV=production
 WORKDIR /app
 
-COPY --from=builder --chown=node:node /app/apps/backend/dist ./dist
-COPY --from=builder --chown=node:node /app/apps/backend/package.json ./package.json
-COPY --from=builder --chown=node:node /app/node_modules ./node_modules
-COPY --from=builder --chown=node:node /app/apps/backend/node_modules ./apps/backend/node_modules
+COPY --from=builder /tmp/package.json ./package.json
+RUN npm install --omit=dev --no-audit --no-fund \
+  && npm cache clean --force \
+  && chown -R node:node /app
 
+COPY --from=builder --chown=node:node /app/apps/backend/dist ./dist
+
+# The node image already provides an unprivileged `node` user.
 USER node
 
 EXPOSE 3000

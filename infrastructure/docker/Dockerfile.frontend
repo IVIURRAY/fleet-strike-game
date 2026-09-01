@@ -1,7 +1,7 @@
 # Frontend image.
 #
-# Builds the Vite bundle, then serves it from nginx which also proxies the
-# WebSocket endpoint so the client can use a same-origin connection.
+# Builds the Vite bundle, then serves it from nginx, which also proxies the
+# WebSocket and API routes so the client runs same-origin in production.
 
 FROM node:20-alpine AS builder
 

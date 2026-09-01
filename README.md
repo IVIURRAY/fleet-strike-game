@@ -157,6 +157,11 @@ These are honest limitations, not oversights:
   spend it on, so gold stops being a meaningful constraint. The design docs
   flag the same problem in their own reference timeline.
 - **No audio**, and no reconnection: disconnecting forfeits the match.
+- **The container images have not been built.** No Docker daemon was available
+  in the environment they were written in. The production runtime stage _was_
+  reproduced by hand — the derived manifest, a flat `npm install --omit=dev`, the
+  bundled server, the `HEALTHCHECK` command and the full end-to-end run all
+  verified outside Docker — but `docker build` itself is unproven.
 - **Phase 2 content is out of scope**, as the docs intend: Admiral ships, fog of
   war, ship abilities, multiple waypoints, stealth, and the Spy, Shield Frigate,
   Miner, Drone Carrier and Ram Ship classes.
