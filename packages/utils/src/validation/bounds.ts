@@ -10,11 +10,7 @@ export function isWithinWorld(x: number, y: number): boolean {
 }
 
 /** Clamps a coordinate pair into the playable area, writing into `target`. */
-export function clampToWorldInto(
-  x: number,
-  y: number,
-  target: { x: number; y: number }
-): void {
+export function clampToWorldInto(x: number, y: number, target: { x: number; y: number }): void {
   target.x = x < 0 ? 0 : x > WORLD_WIDTH ? WORLD_WIDTH : x;
   target.y = y < 0 ? 0 : y > WORLD_HEIGHT ? WORLD_HEIGHT : y;
 }

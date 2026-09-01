@@ -19,7 +19,12 @@ import { shipQuery } from '../queries';
 import type { GameWorld } from '../world';
 
 function match(): GameWorld {
-  return createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }] });
+  return createMatch({
+    players: [
+      { id: 1, name: 'A' },
+      { id: 2, name: 'B' },
+    ],
+  });
 }
 
 /** Advances the world by `seconds` of simulated time at the fixed timestep. */
@@ -153,15 +158,25 @@ describe('full match simulation', () => {
   });
 
   it('is deterministic for a fixed seed', () => {
-    const a = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }], seed: 99 });
-    const b = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }], seed: 99 });
+    const a = createMatch({
+      players: [
+        { id: 1, name: 'A' },
+        { id: 2, name: 'B' },
+      ],
+      seed: 99,
+    });
+    const b = createMatch({
+      players: [
+        { id: 1, name: 'A' },
+        { id: 2, name: 'B' },
+      ],
+      seed: 99,
+    });
 
     advance(a, 60);
     advance(b, 60);
 
-    expect(a.context.players.get(1)!.resources.gold).toBe(
-      b.context.players.get(1)!.resources.gold
-    );
+    expect(a.context.players.get(1)!.resources.gold).toBe(b.context.players.get(1)!.resources.gold);
     expect(shipQuery(a).length).toBe(shipQuery(b).length);
   });
 });

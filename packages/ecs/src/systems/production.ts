@@ -15,13 +15,7 @@ import { SHIPS, SHIP_TYPE_BY_ID } from '@fleet-strike/config';
 import { productionInterval, unitDamageBonus, unitHpBonus } from '@fleet-strike/config';
 import { hasResources, spend } from '@fleet-strike/utils';
 
-import {
-  BuildingClass,
-  Owner,
-  Position,
-  Production,
-  UnderConstruction,
-} from '../components';
+import { BuildingClass, Owner, Position, Production, UnderConstruction } from '../components';
 import { constructionQuery, productionQuery } from '../queries';
 import { createShip } from '../entities/ship';
 import { emitEvent } from '../world';
@@ -119,8 +113,7 @@ function spawnFromFactory(
   if (player === undefined) return;
 
   const buildingType = BUILDING_TYPES[BuildingClass.typeId[factory] as number] as
-    | BuildingType
-    | undefined;
+    BuildingType | undefined;
   const level = BuildingClass.level[factory] as number;
 
   const bonuses =

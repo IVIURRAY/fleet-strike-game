@@ -81,9 +81,7 @@ describe('DeltaTracker diffing', () => {
 
   it('emits only the fields that changed', () => {
     tracker.buildUpdate(snapshot(1, [{ id: 10, x: 0, y: 0, rotation: 0, hp: 80 }]));
-    const update = tracker.buildUpdate(
-      snapshot(2, [{ id: 10, x: 5, y: 0, rotation: 0, hp: 80 }])
-    );
+    const update = tracker.buildUpdate(snapshot(2, [{ id: 10, x: 5, y: 0, rotation: 0, hp: 80 }]));
 
     expect(update.entities).toHaveLength(1);
     const entity = update.entities[0]!;
@@ -103,7 +101,12 @@ describe('DeltaTracker diffing', () => {
   });
 
   it('reports removed ships once and then forgets them', () => {
-    tracker.buildUpdate(snapshot(1, [{ id: 10, x: 0, y: 0 }, { id: 11, x: 1, y: 1 }]));
+    tracker.buildUpdate(
+      snapshot(1, [
+        { id: 10, x: 0, y: 0 },
+        { id: 11, x: 1, y: 1 },
+      ])
+    );
 
     const update = tracker.buildUpdate(snapshot(2, [{ id: 10, x: 0, y: 0 }]));
     expect(update.removed).toEqual([11]);
@@ -115,7 +118,10 @@ describe('DeltaTracker diffing', () => {
   it('handles a ship being created and removed across frames', () => {
     tracker.buildUpdate(snapshot(1, [{ id: 10, x: 0, y: 0 }]));
     const spawned = tracker.buildUpdate(
-      snapshot(2, [{ id: 10, x: 0, y: 0 }, { id: 12, x: 9, y: 9 }])
+      snapshot(2, [
+        { id: 10, x: 0, y: 0 },
+        { id: 12, x: 9, y: 9 },
+      ])
     );
     expect(spawned.created.map((s) => s.id)).toEqual([12]);
 
@@ -164,7 +170,12 @@ describe('DeltaTracker diffing', () => {
   });
 
   it('reports how many entities it is tracking', () => {
-    tracker.buildUpdate(snapshot(1, [{ id: 1, x: 0, y: 0 }, { id: 2, x: 0, y: 0 }]));
+    tracker.buildUpdate(
+      snapshot(1, [
+        { id: 1, x: 0, y: 0 },
+        { id: 2, x: 0, y: 0 },
+      ])
+    );
     expect(tracker.trackedCount).toBe(2);
   });
 });

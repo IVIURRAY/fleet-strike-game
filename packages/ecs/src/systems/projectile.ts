@@ -91,7 +91,15 @@ export function projectileCollisionSystem(world: GameWorld, deltaTime: number): 
     const searchRadius = halfLength + projectileRadius + MAX_TARGET_RADIUS;
 
     const hit =
-      findHit(shipGrid.query(midX, midY, searchRadius), owner, fromX, fromY, toX, toY, projectileRadius) ||
+      findHit(
+        shipGrid.query(midX, midY, searchRadius),
+        owner,
+        fromX,
+        fromY,
+        toX,
+        toY,
+        projectileRadius
+      ) ||
       findHit(
         structureGrid.query(midX, midY, searchRadius),
         owner,
@@ -187,16 +195,7 @@ function applySplash(
   const { shipGrid, structureGrid } = world.context;
 
   damageInRadius(world, shipGrid.query(x, y, radius), x, y, radius, damage, weaponType, owner);
-  damageInRadius(
-    world,
-    structureGrid.query(x, y, radius),
-    x,
-    y,
-    radius,
-    damage,
-    weaponType,
-    owner
-  );
+  damageInRadius(world, structureGrid.query(x, y, radius), x, y, radius, damage, weaponType, owner);
 }
 
 function damageInRadius(

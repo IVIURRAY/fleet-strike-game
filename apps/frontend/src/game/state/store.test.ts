@@ -78,7 +78,12 @@ describe('GameStore snapshots', () => {
   it('applies a full snapshot', () => {
     const store = new GameStore();
     store.applySnapshot(
-      snapshot({ tick: 42, elapsed: 7, ships: [ship({ id: 5, x: 10 })], players: [player(1, 'Ada')] })
+      snapshot({
+        tick: 42,
+        elapsed: 7,
+        ships: [ship({ id: 5, x: 10 })],
+        players: [player(1, 'Ada')],
+      })
     );
 
     expect(store.tick).toBe(42);
@@ -242,7 +247,9 @@ describe('GameStore queries', () => {
 describe('GameStore reset', () => {
   it('clears match state', () => {
     const store = new GameStore();
-    store.applySnapshot(snapshot({ tick: 10, ships: [ship({ id: 1 })], players: [player(1, 'A')] }));
+    store.applySnapshot(
+      snapshot({ tick: 10, ships: [ship({ id: 1 })], players: [player(1, 'A')] })
+    );
     store.reset();
 
     expect(store.ships.size).toBe(0);

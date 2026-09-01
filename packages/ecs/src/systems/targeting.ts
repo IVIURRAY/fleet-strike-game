@@ -43,7 +43,12 @@ export function targetingSystem(world: GameWorld, deltaTime: number): void {
     for (let j = 0; j < ships.length; j += 1) {
       const candidate = ships[j] as number;
       if ((Owner.playerId[candidate] as number) === owner) continue;
-      const d = distanceSquared(x, y, Position.x[candidate] as number, Position.y[candidate] as number);
+      const d = distanceSquared(
+        x,
+        y,
+        Position.x[candidate] as number,
+        Position.y[candidate] as number
+      );
       if (d < bestDistance) {
         bestDistance = d;
         best = candidate;

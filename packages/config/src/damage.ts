@@ -54,11 +54,7 @@ export const LASER_SHIELD_MODIFIER = 1.2;
  * the multiplier before mitigation keeps armour meaningful against
  * specialised weapons.
  */
-export function resolveDamage(
-  rawDamage: number,
-  weapon: WeaponType,
-  armor: ArmorType
-): number {
+export function resolveDamage(rawDamage: number, weapon: WeaponType, armor: ArmorType): number {
   const modifier = WEAPON_ARMOR_MODIFIERS[weapon][armor];
   const reduction = ARMOR_DAMAGE_REDUCTION[armor];
   const damage = rawDamage * modifier * (1 - reduction);

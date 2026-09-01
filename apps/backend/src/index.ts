@@ -23,13 +23,11 @@ const reaper = setInterval(() => {
 }, EMPTY_ROOM_TTL * 1000);
 
 server.listen(port, () => {
-  // eslint-disable-next-line no-console
   console.warn(`Fleet Strike server listening on http://localhost:${port} (ws: /ws)`);
 });
 
 /** Closes the server and every running match. */
 function shutdown(signal: string): void {
-  // eslint-disable-next-line no-console
   console.warn(`Received ${signal}, shutting down`);
   clearInterval(reaper);
   lobby.destroyAll();

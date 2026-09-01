@@ -2,14 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { createRandom, randomPointOnCircle } from '../random';
 import { magnitude } from './vector';
-import {
-  damp,
-  easeOutQuad,
-  lerpAngle,
-  lerpVectorInto,
-  remap,
-  smoothStep,
-} from './interpolation';
+import { damp, easeOutQuad, lerpAngle, lerpVectorInto, remap, smoothStep } from './interpolation';
 
 describe('lerpVectorInto', () => {
   it('interpolates both axes into the target', () => {

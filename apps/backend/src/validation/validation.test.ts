@@ -13,10 +13,15 @@ import {
   slotPosition,
 } from '@fleet-strike/ecs';
 
-import { hasSparePower, validateBuild, validateUpgrade, validateWaypoint } from './commands';
+import { hasSparePower, validateBuild, validateUpgrade, validateWaypoint } from './index';
 
 function newWorld(): GameWorld {
-  const world = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }] });
+  const world = createMatch({
+    players: [
+      { id: 1, name: 'A' },
+      { id: 2, name: 'B' },
+    ],
+  });
   world.context.phase = 'playing';
   return world;
 }
@@ -124,7 +129,9 @@ describe('validateBuild', () => {
   });
 
   it('rejects a moon building placed on a planet surface', () => {
-    const result = validateBuild(buildParams(world, { buildingType: 'plasmaTurret', moonId: null }));
+    const result = validateBuild(
+      buildParams(world, { buildingType: 'plasmaTurret', moonId: null })
+    );
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.reason).toMatch(/must be built on a moon/i);
   });
@@ -206,9 +213,7 @@ describe('validateBuild', () => {
     player.resources.gold = 10000;
     Owner.playerId[findPlanetEntity(world, 1)] = 1;
 
-    const result = validateBuild(
-      buildParams(world, { buildingType: 'goldMine', planetIndex: 1 })
-    );
+    const result = validateBuild(buildParams(world, { buildingType: 'goldMine', planetIndex: 1 }));
     expect(result.ok).toBe(true);
     if (result.ok) expect(result.value.incomeMultiplier).toBe(1.5);
   });

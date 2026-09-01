@@ -10,9 +10,7 @@ import type { BuildingType, ClientMessage } from '@fleet-strike/types';
 import { MAX_MESSAGE_BYTES, MAX_PLAYER_NAME_LENGTH } from '@fleet-strike/config';
 
 /** Result of parsing an inbound frame. */
-export type ParseResult =
-  | { ok: true; message: ClientMessage }
-  | { ok: false; reason: string };
+export type ParseResult = { ok: true; message: ClientMessage } | { ok: false; reason: string };
 
 /** Parses and validates a raw WebSocket frame. */
 export function parseClientMessage(raw: string): ParseResult {
@@ -116,7 +114,9 @@ export function parseClientMessage(raw: string): ParseResult {
 /** Trims a player-supplied name to a safe length, with a fallback. */
 export function sanitizeName(value: unknown): string {
   if (typeof value !== 'string') return 'Captain';
-  // Strip control characters that would corrupt the HUD.
+  // Stripping control characters is the point: they would corrupt the HUD and
+  // could smuggle escape sequences into logs.
+  // eslint-disable-next-line no-control-regex
   const cleaned = value.replace(/[\u0000-\u001f\u007f]/g, '').trim();
   if (cleaned.length === 0) return 'Captain';
   return cleaned.slice(0, MAX_PLAYER_NAME_LENGTH);

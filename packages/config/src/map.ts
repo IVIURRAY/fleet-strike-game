@@ -13,7 +13,12 @@
  *    capture radius so moons never sit inside their own planet's capture ring.
  */
 
-import type { ExoticResource, MoonDefinition, PlanetDefinition, PlanetKind } from '@fleet-strike/types';
+import type {
+  ExoticResource,
+  MoonDefinition,
+  PlanetDefinition,
+  PlanetKind,
+} from '@fleet-strike/types';
 
 /** Distance between adjacent planets. */
 export const PLANET_SPACING = 3000;

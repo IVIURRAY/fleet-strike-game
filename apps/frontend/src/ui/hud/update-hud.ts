@@ -118,10 +118,7 @@ function updateWallet(hud: HudElements, store: GameStore): void {
     element.classList.toggle('locked', isLocked);
 
     if (value !== null) {
-      value.textContent =
-        row.key === 'manpower'
-          ? `${amount}/${me.caps.manpower}`
-          : String(amount);
+      value.textContent = row.key === 'manpower' ? `${amount}/${me.caps.manpower}` : String(amount);
     }
 
     if (rate !== null) {

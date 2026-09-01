@@ -113,11 +113,7 @@ const TURRET_TYPES = new Set<BuildingType>([
 ]);
 
 /** Creates the graphics for a building. */
-export function createBuildingSprite(
-  type: BuildingType,
-  owner: 0 | 1 | 2,
-  radius = 26
-): Graphics {
+export function createBuildingSprite(type: BuildingType, owner: 0 | 1 | 2, radius = 26): Graphics {
   const graphics = new Graphics();
   const color = OWNER_COLORS[owner];
 

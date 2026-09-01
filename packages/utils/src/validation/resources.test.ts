@@ -2,14 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { EXOTIC_CAP } from '@fleet-strike/config';
 
-import {
-  grant,
-  hasResources,
-  makeCaps,
-  missingResource,
-  refundManpower,
-  spend,
-} from './resources';
+import { grant, hasResources, makeCaps, missingResource, refundManpower, spend } from './resources';
 import { clampToWorldInto, isFiniteNumber, isNonNegativeInteger, isWithinWorld } from './bounds';
 
 function pool(overrides: Partial<ReturnType<typeof basePool>> = {}) {

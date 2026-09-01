@@ -49,7 +49,13 @@ export const MOON_BUILDINGS: Readonly<Record<MoonBuildingType, BuildingDefinitio
     visionRadius: 0,
     isDestructible: true,
     upgrades: [
-      { level: 2, cost: cost({ gold: 200, gas: 15 }), hpBonus: 200, damageBonus: 20, rangeBonus: 100 },
+      {
+        level: 2,
+        cost: cost({ gold: 200, gas: 15 }),
+        hpBonus: 200,
+        damageBonus: 20,
+        rangeBonus: 100,
+      },
       { level: 3, cost: cost({ gold: 400, gas: 30 }), hpBonus: 400 },
     ],
     texture: 'turret_plasma',

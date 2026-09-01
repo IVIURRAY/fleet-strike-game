@@ -27,25 +27,38 @@ export function drawShipShape(graphics: Graphics, type: ShipType, color: number)
     case 'soldier':
       // Broader arrowhead with swept wings.
       graphics.poly([
-        size, 0,
-        -size * 0.4, size * 0.75,
-        -size, size * 0.5,
-        -size * 0.6, 0,
-        -size, -size * 0.5,
-        -size * 0.4, -size * 0.75,
+        size,
+        0,
+        -size * 0.4,
+        size * 0.75,
+        -size,
+        size * 0.5,
+        -size * 0.6,
+        0,
+        -size,
+        -size * 0.5,
+        -size * 0.4,
+        -size * 0.75,
       ]);
       break;
 
     case 'heavy':
       // Blocky gunship hull.
       graphics.poly([
-        size, size * 0.35,
-        size, -size * 0.35,
-        size * 0.2, -size * 0.8,
-        -size * 0.9, -size * 0.8,
-        -size, 0,
-        -size * 0.9, size * 0.8,
-        size * 0.2, size * 0.8,
+        size,
+        size * 0.35,
+        size,
+        -size * 0.35,
+        size * 0.2,
+        -size * 0.8,
+        -size * 0.9,
+        -size * 0.8,
+        -size,
+        0,
+        -size * 0.9,
+        size * 0.8,
+        size * 0.2,
+        size * 0.8,
       ]);
       break;
 
@@ -57,36 +70,54 @@ export function drawShipShape(graphics: Graphics, type: ShipType, color: number)
     case 'engineer':
       // Utility hull with a forward tool arm.
       graphics.poly([
-        size, size * 0.15,
-        size, -size * 0.15,
-        size * 0.1, -size * 0.7,
-        -size * 0.85, -size * 0.55,
-        -size * 0.85, size * 0.55,
-        size * 0.1, size * 0.7,
+        size,
+        size * 0.15,
+        size,
+        -size * 0.15,
+        size * 0.1,
+        -size * 0.7,
+        -size * 0.85,
+        -size * 0.55,
+        -size * 0.85,
+        size * 0.55,
+        size * 0.1,
+        size * 0.7,
       ]);
       break;
 
     case 'bomber':
       // Wide flying wing.
       graphics.poly([
-        size * 0.9, 0,
-        size * 0.1, size,
-        -size * 0.8, size * 0.7,
-        -size * 0.5, 0,
-        -size * 0.8, -size * 0.7,
-        size * 0.1, -size,
+        size * 0.9,
+        0,
+        size * 0.1,
+        size,
+        -size * 0.8,
+        size * 0.7,
+        -size * 0.5,
+        0,
+        -size * 0.8,
+        -size * 0.7,
+        size * 0.1,
+        -size,
       ]);
       break;
 
     case 'sniper':
       // Long, thin frigate with a pronounced barrel.
       graphics.poly([
-        size * 1.3, 0,
-        size * 0.2, size * 0.32,
-        -size, size * 0.45,
-        -size * 0.75, 0,
-        -size, -size * 0.45,
-        size * 0.2, -size * 0.32,
+        size * 1.3,
+        0,
+        size * 0.2,
+        size * 0.32,
+        -size,
+        size * 0.45,
+        -size * 0.75,
+        0,
+        -size,
+        -size * 0.45,
+        size * 0.2,
+        -size * 0.32,
       ]);
       break;
   }

@@ -42,8 +42,7 @@ export function applyDamage(
   if (hasComponent(world, Shield, target)) {
     const shieldHp = Shield.current[target] as number;
     if (shieldHp > 0) {
-      const shieldDamage =
-        weaponType === 'laser' ? remaining * LASER_SHIELD_MODIFIER : remaining;
+      const shieldDamage = weaponType === 'laser' ? remaining * LASER_SHIELD_MODIFIER : remaining;
       if (shieldDamage <= shieldHp) {
         Shield.current[target] = shieldHp - shieldDamage;
         return 0;

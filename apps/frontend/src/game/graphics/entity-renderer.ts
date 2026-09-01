@@ -82,8 +82,7 @@ export class EntityRenderer {
       // Only the hull rotates; the container stays axis-aligned so the health
       // bar above it is never drawn upside down. At the lowest detail band
       // ships are sub-pixel, so rotation work is skipped entirely.
-      visual.hull.rotation =
-        lod === 'dot' ? 0 : lerpAngle(ship.prevRotation, ship.rotation, t);
+      visual.hull.rotation = lod === 'dot' ? 0 : lerpAngle(ship.prevRotation, ship.rotation, t);
 
       const healthFraction = ship.maxHp > 0 ? ship.hp / ship.maxHp : 1;
 
@@ -210,12 +209,7 @@ export class EntityRenderer {
 }
 
 /** Draws a health bar above a ship, in the ship's unrotated local space. */
-function drawHealthBar(
-  graphics: Graphics,
-  radius: number,
-  fraction: number,
-  owner: number
-): void {
+function drawHealthBar(graphics: Graphics, radius: number, fraction: number, owner: number): void {
   const width = radius * 2.2;
   const height = Math.max(2, radius * 0.22);
   const y = -radius - height * 2.2;

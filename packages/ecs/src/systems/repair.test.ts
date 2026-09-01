@@ -12,7 +12,12 @@ import { spatialIndexSystem } from './spatial-index';
 import type { GameWorld } from '../world';
 
 function newMatch(): GameWorld {
-  const world = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }] });
+  const world = createMatch({
+    players: [
+      { id: 1, name: 'A' },
+      { id: 2, name: 'B' },
+    ],
+  });
   world.context.phase = 'playing';
   return world;
 }

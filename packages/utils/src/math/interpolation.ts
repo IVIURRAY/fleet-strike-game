@@ -23,7 +23,12 @@ export function lerpVectorInto(
  *
  * `smoothing` is the fraction of the remaining distance covered per second.
  */
-export function damp(current: number, target: number, smoothing: number, deltaTime: number): number {
+export function damp(
+  current: number,
+  target: number,
+  smoothing: number,
+  deltaTime: number
+): number {
   const t = 1 - Math.exp(-smoothing * deltaTime);
   return current + (target - current) * t;
 }

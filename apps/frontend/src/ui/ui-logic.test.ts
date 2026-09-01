@@ -40,9 +40,7 @@ describe('formatDuration', () => {
 
 describe('escapeHtml', () => {
   it('escapes markup so player names cannot inject HTML', () => {
-    expect(escapeHtml('<script>alert(1)</script>')).toBe(
-      '&lt;script&gt;alert(1)&lt;/script&gt;'
-    );
+    expect(escapeHtml('<script>alert(1)</script>')).toBe('&lt;script&gt;alert(1)&lt;/script&gt;');
   });
 
   it('escapes quotes and ampersands', () => {

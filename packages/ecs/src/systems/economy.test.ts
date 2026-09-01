@@ -24,7 +24,12 @@ import { buildingQuery, shipQuery } from '../queries';
 import type { GameWorld } from '../world';
 
 function newMatch(): GameWorld {
-  const world = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }] });
+  const world = createMatch({
+    players: [
+      { id: 1, name: 'A' },
+      { id: 2, name: 'B' },
+    ],
+  });
   world.context.phase = 'playing';
   return world;
 }
@@ -223,9 +228,7 @@ describe('economySystem', () => {
     recalculateIncome(world);
 
     expect(player.income.gold).toBe(0);
-    expect(world.context.players.get(2)?.income.gold).toBe(
-      COMMAND_CENTER_GOLD_PER_SECOND * 2
-    );
+    expect(world.context.players.get(2)?.income.gold).toBe(COMMAND_CENTER_GOLD_PER_SECOND * 2);
   });
 });
 

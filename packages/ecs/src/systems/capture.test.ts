@@ -1,11 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import {
-  CAPTURE_RADIUS,
-  CAPTURE_THRESHOLD,
-  MAX_CAPTURE_RATE,
-  PLANETS,
-} from '@fleet-strike/config';
+import { CAPTURE_RADIUS, CAPTURE_THRESHOLD, MAX_CAPTURE_RATE, PLANETS } from '@fleet-strike/config';
 
 import { Capturable, Owner, Parent } from '../components';
 import { createMatch, findPlanetEntity } from '../match';
@@ -19,7 +14,12 @@ describe('captureSystem', () => {
   let world: GameWorld;
 
   beforeEach(() => {
-    world = createMatch({ players: [{ id: 1, name: 'A' }, { id: 2, name: 'B' }] });
+    world = createMatch({
+      players: [
+        { id: 1, name: 'A' },
+        { id: 2, name: 'B' },
+      ],
+    });
     world.context.phase = 'playing';
   });
 

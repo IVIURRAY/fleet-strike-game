@@ -11,7 +11,16 @@ import type { PlayerId, WeaponType } from '@fleet-strike/types';
 import { WEAPONS, WEAPON_TYPE_BY_ID } from '@fleet-strike/config';
 import { distance } from '@fleet-strike/utils';
 
-import { Active, Health, Owner, Position, Rotation, Targeting, Velocity, Weapons } from '../components';
+import {
+  Active,
+  Health,
+  Owner,
+  Position,
+  Rotation,
+  Targeting,
+  Velocity,
+  Weapons,
+} from '../components';
 import { weaponQuery } from '../queries';
 import { createProjectile } from '../entities/projectile';
 import { emitEvent } from '../world';

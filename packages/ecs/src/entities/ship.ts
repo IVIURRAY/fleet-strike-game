@@ -126,11 +126,7 @@ export function createShip(world: GameWorld, params: CreateShipParams): number {
 }
 
 /** Writes weapon mount data into the `Weapons` component arrays. */
-function applyWeapons(
-  entity: number,
-  weapons: readonly WeaponStats[],
-  damageBonus: number
-): void {
+function applyWeapons(entity: number, weapons: readonly WeaponStats[], damageBonus: number): void {
   const count = Math.min(weapons.length, MAX_WEAPON_MOUNTS);
   Weapons.count[entity] = count;
 

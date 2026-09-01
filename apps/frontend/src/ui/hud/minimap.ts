@@ -6,7 +6,13 @@
  * ownership colours, fleet positions, the waypoint and the current viewport.
  */
 
-import { OWNER_COLORS, PLANETS, TEAM_COLORS, WORLD_HEIGHT, WORLD_WIDTH } from '@fleet-strike/config';
+import {
+  OWNER_COLORS,
+  PLANETS,
+  TEAM_COLORS,
+  WORLD_HEIGHT,
+  WORLD_WIDTH,
+} from '@fleet-strike/config';
 import type { Camera } from '@fleet-strike/renderer';
 
 import type { GameStore } from '../../game/state/store';
@@ -20,11 +26,7 @@ function css(color: number, alpha = 1): string {
 }
 
 /** Redraws the minimap. */
-export function drawMinimap(
-  canvas: HTMLCanvasElement,
-  store: GameStore,
-  camera: Camera
-): void {
+export function drawMinimap(canvas: HTMLCanvasElement, store: GameStore, camera: Camera): void {
   const context = canvas.getContext('2d');
   if (context === null) return;
 

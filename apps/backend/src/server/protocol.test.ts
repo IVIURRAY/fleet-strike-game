@@ -109,7 +109,8 @@ describe('parseClientMessage in-match commands', () => {
 
   it('rejects malformed build commands', () => {
     expect(
-      parseClientMessage('{"type":"BUILD_STRUCTURE","planetIndex":1.5,"buildingType":"goldMine"}').ok
+      parseClientMessage('{"type":"BUILD_STRUCTURE","planetIndex":1.5,"buildingType":"goldMine"}')
+        .ok
     ).toBe(false);
     expect(parseClientMessage('{"type":"BUILD_STRUCTURE","planetIndex":0}').ok).toBe(false);
     expect(
