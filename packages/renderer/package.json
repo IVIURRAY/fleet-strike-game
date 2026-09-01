@@ -1,0 +1,33 @@
+{
+  "name": "@fleet-strike/renderer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./sprites": {
+      "types": "./dist/sprites/index.d.ts",
+      "import": "./dist/sprites/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsc -p tsconfig.build.json --watch",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "lint": "eslint src",
+    "clean": "rm -rf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@fleet-strike/config": "workspace:*",
+    "@fleet-strike/types": "workspace:*",
+    "@fleet-strike/utils": "workspace:*",
+    "pixi.js": "^8.6.6"
+  }
+}
