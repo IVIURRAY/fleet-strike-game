@@ -285,6 +285,84 @@ packages:
 
 ---
 
+## UI System
+
+### CSS-Only UI (No Framework)
+
+**Approach:** Vanilla CSS with neon-cyberpunk aesthetic inspired by Geometry Wars
+
+**Why No CSS Framework:**
+- ✅ **Performance:** Minimal bundle size (~10-15KB minified)
+- ✅ **Custom Design:** Unique neon aesthetic doesn't fit generic frameworks
+- ✅ **Simplicity:** No build complexity, no learning curve
+- ✅ **Full Control:** Every pixel is intentional
+
+**Architecture:**
+```
+┌─────────────────────────────────────────┐
+│   HTML/CSS UI Layer (Overlay)          │
+│   - Menus, HUD, modals                 │
+│   - position: absolute                 │
+│   - pointer-events selectively enabled │
+├─────────────────────────────────────────┤
+│   PixiJS Canvas (WebGPU/WebGL)         │
+│   - Ships, planets, effects            │
+│   - Full viewport rendering            │
+└─────────────────────────────────────────┘
+```
+
+### Color Palette
+
+**Primary Colors:**
+- **Cyan (Player):** `#4fcbe9` - Brand color, player units
+- **Magenta (Enemy):** `#c65cff` - Enemy units, accents
+- **Green (Success):** `#8eff63` - Income, positive feedback
+- **Gold (Resources):** `#fff06a` - Gold, resources
+
+**Backgrounds:**
+- Deep space blacks (`#010108`)
+- Dark purples (`#100629`)
+- Translucent overlays for HUD
+
+**Visual Effects:**
+- Neon glow using `text-shadow` and `box-shadow`
+- Geometric shapes with `clip-path` (hexagons, skewed elements)
+- Smooth transitions and pulse animations
+
+### Typography
+
+```css
+/* Headings, Stats */
+font-family: 'Barlow Condensed', system-ui;
+font-weight: 700-800;
+letter-spacing: 2px;
+text-transform: uppercase;
+
+/* Body, Labels */
+font-family: 'Inter', system-ui;
+font-weight: 400-600;
+```
+
+### UI Components
+
+1. **Top Bar (HUD):** Player HP, resources, timer
+2. **Bottom Panel:** Build menu, unit cards, lane selection
+3. **Cards:** Unit/building selection with hover glow
+4. **Panels/Modals:** Menus, victory/defeat screens
+5. **HP Bars:** Skewed geometric bars with gradient fills
+6. **Buttons:** Neon glow on hover, clear active states
+
+### Performance
+
+- Hardware-accelerated CSS (`transform`, `opacity`)
+- Minimal repaints (batch DOM updates)
+- `will-change` for animations
+- `contain` for isolated components
+
+**See:** `docs/UI_Design_System.md` for complete design system documentation.
+
+---
+
 ## Backend Architecture
 
 ### Server Technology Stack
@@ -837,7 +915,8 @@ pnpm build
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **Frontend** | TypeScript, PixiJS 8, bitECS | 2D rendering + client simulation |
+| **Frontend Rendering** | TypeScript, PixiJS 8, bitECS | 2D rendering + client simulation |
+| **Frontend UI** | Vanilla CSS (neon aesthetic) | Menus, HUD, overlays |
 | **Backend** | Node.js, Express, WebSocket | Authoritative server |
 | **Shared** | TypeScript modules | ECS definitions, constants |
 | **Infrastructure** | Docker, Digital Ocean, Terraform | Containerization + cloud hosting |
