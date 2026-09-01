@@ -126,8 +126,11 @@ export class GameRoom {
   /**
    * Removes a player.
    *
-   * Leaving an in-progress match forfeits it, which is the only sane resolution
-   * for a two-player game with no reconnection window in the MVP.
+   * Leaving after the match world exists forfeits it, which is the only sane
+   * resolution for a two-player game with no reconnection window in the MVP.
+   * This covers the setup phase as well as active play — otherwise a player who
+   * quits during the 30 second setup would leave their opponent stranded in a
+   * room whose loop is still running.
    */
   removePlayer(id: PlayerId): void {
     const seat = this.seats.get(id);
@@ -135,8 +138,9 @@ export class GameRoom {
 
     seat.connection = null;
     const world = this.world;
+    const phase = world?.context.phase;
 
-    if (world !== null && world.context.phase === 'playing') {
+    if (world !== null && (phase === 'playing' || phase === 'setup')) {
       const player = world.context.players.get(id);
       if (player !== undefined) player.status = 'disconnected';
       forfeit(world, id);
