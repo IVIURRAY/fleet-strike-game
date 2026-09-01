@@ -44,6 +44,15 @@ importers:
 
   packages/types: {}
 
+  packages/utils:
+    dependencies:
+      '@fleet-strike/config':
+        specifier: workspace:*
+        version: link:../config
+      '@fleet-strike/types':
+        specifier: workspace:*
+        version: link:../types
+
 packages:
 
   '@ampproject/remapping@2.3.0':
