@@ -42,6 +42,21 @@ importers:
         specifier: workspace:*
         version: link:../types
 
+  packages/ecs:
+    dependencies:
+      '@fleet-strike/config':
+        specifier: workspace:*
+        version: link:../config
+      '@fleet-strike/types':
+        specifier: workspace:*
+        version: link:../types
+      '@fleet-strike/utils':
+        specifier: workspace:*
+        version: link:../utils
+      bitecs:
+        specifier: 0.3.40
+        version: 0.3.40
+
   packages/types: {}
 
   packages/utils:
@@ -623,6 +638,9 @@ packages:
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
+
+  bitecs@0.3.40:
+    resolution: {integrity: sha512-wAylY4pNfX8IeIH5phtwt1lUNtHKrkoSNrArI7Ris2Y4nEQWFIVvXdgAuqprEg9bq8Wolmlj0gVfeG6MFmtI2Q==}
 
   brace-expansion@1.1.18:
     resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
@@ -1674,6 +1692,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   balanced-match@4.0.4: {}
+
+  bitecs@0.3.40: {}
 
   brace-expansion@1.1.18:
     dependencies:
