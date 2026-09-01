@@ -6,7 +6,7 @@
  * held on this container alongside the bitECS world.
  */
 
-import { createWorld as createBitWorld } from 'bitecs';
+import { addEntity, createWorld as createBitWorld } from 'bitecs';
 import type { IWorld } from 'bitecs';
 import type { GameEvent, MatchPhase, MatchResult, Player, PlayerId } from '@fleet-strike/types';
 import { SPATIAL_CELL_SIZE } from '@fleet-strike/config';
@@ -46,9 +46,25 @@ export interface GameContext {
 /** A bitECS world plus Fleet Strike's non-numeric state. */
 export type GameWorld = IWorld & { context: GameContext };
 
+/**
+ * Entity id reserved to mean "no entity".
+ *
+ * Component fields such as `Targeting.target`, `Projectile.target` and
+ * `Parent.entity` use 0 as a null sentinel, and lookup helpers return 0 when
+ * they find nothing. bitECS hands out entity id 0 to the first entity created,
+ * which would make a real entity indistinguishable from "none" — a bug that
+ * only manifests in the very first match a process runs. `createGameWorld`
+ * therefore burns id 0 up front so no gameplay entity can ever own it.
+ */
+export const NO_ENTITY = 0;
+
 /** Creates an empty world. `seed` makes the simulation reproducible. */
 export function createGameWorld(seed = 1): GameWorld {
   const world = createBitWorld() as GameWorld;
+
+  // Reserve NO_ENTITY. The returned id is deliberately discarded.
+  addEntity(world);
+
   world.context = {
     tick: 0,
     elapsed: 0,

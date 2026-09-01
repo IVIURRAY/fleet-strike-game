@@ -12,6 +12,7 @@ import {
 } from '@fleet-strike/config';
 
 import { BuildingClass, Owner, Production, UnderConstruction } from '../components';
+import { BUILDING_TYPES } from '@fleet-strike/types';
 import { createMatch, findPlanetEntity, slotPosition } from '../match';
 import { createBuilding } from '../entities/building';
 import { createShip } from '../entities/ship';
@@ -19,7 +20,7 @@ import { constructionSystem, productionSystem } from './production';
 import { economySystem, recalculateIncome } from './economy';
 import { spatialIndexSystem } from './spatial-index';
 import { captureSystem, updatePlanetControl } from './capture';
-import { shipQuery } from '../queries';
+import { buildingQuery, shipQuery } from '../queries';
 import type { GameWorld } from '../world';
 
 function newMatch(): GameWorld {
@@ -33,6 +34,21 @@ describe('starting conditions', () => {
 
   beforeEach(() => {
     world = newMatch();
+  });
+
+  it('gives both players a command center even in the first match of a process', () => {
+    // Regression: entity id 0 doubles as the "no entity" sentinel, so the very
+    // first match created in a process used to skip player 1's Command Center
+    // because findPlanetEntity(0) returned a real entity that read as "missing".
+    // createGameWorld now reserves id 0.
+    const buildings = buildingQuery(world);
+    const commandCenters = Array.from(buildings).filter(
+      (eid) => BUILDING_TYPES[BuildingClass.typeId[eid] as number] === 'commandCenter'
+    );
+    expect(commandCenters).toHaveLength(2);
+
+    const owners = commandCenters.map((eid) => Owner.playerId[eid]).sort();
+    expect(owners).toEqual([1, 2]);
   });
 
   it('gives each player the documented starting resources', () => {

@@ -59,7 +59,6 @@ export interface PlanetState {
   readonly captureProgress: number;
   /** Ships of each player currently inside the capture radius. */
   readonly presence: Readonly<Record<PlayerId, number>>;
-  readonly buildingIds: readonly number[];
 }
 
 /** Live moon state broadcast to clients. */
@@ -68,5 +67,4 @@ export interface MoonState {
   readonly x: number;
   readonly y: number;
   readonly owner: OwnerId;
-  readonly buildingIds: readonly number[];
 }

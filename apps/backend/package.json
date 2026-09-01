@@ -1,0 +1,33 @@
+{
+  "name": "@fleet-strike/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "test:coverage": "vitest run --coverage --passWithNoTests",
+    "lint": "eslint src",
+    "clean": "rm -rf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@fleet-strike/config": "workspace:*",
+    "@fleet-strike/ecs": "workspace:*",
+    "@fleet-strike/types": "workspace:*",
+    "@fleet-strike/utils": "workspace:*",
+    "bitecs": "0.3.40",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2"
+  }
+}

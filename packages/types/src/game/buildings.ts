@@ -119,6 +119,8 @@ export interface BuildingState {
   readonly id: number;
   readonly type: BuildingType;
   readonly owner: 1 | 2;
+  /** Chain index of the planet this building belongs to. */
+  readonly planetIndex: number;
   readonly x: number;
   readonly y: number;
   readonly level: number;
