@@ -1,5 +1,5 @@
 {
-  "name": "@fleet-strike/types",
+  "name": "@fleet-strike/config",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,10 +9,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./network": {
-      "types": "./dist/network/index.d.ts",
-      "import": "./dist/network/index.js"
     }
   },
   "scripts": {
@@ -23,5 +19,8 @@
     "test:coverage": "vitest run --coverage --passWithNoTests",
     "lint": "eslint src",
     "clean": "rm -rf dist .turbo *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@fleet-strike/types": "workspace:*"
   }
 }
