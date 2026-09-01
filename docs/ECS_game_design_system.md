@@ -5,8 +5,9 @@
 Fleet Strike uses **Entity-Component-System (ECS)** architecture to ensure:
 - **Performance:** Handle 200-300+ ships with continuous combat, movement, and state updates at 60 FPS
 - **Scalability:** Easily add new unit types, buildings, and mechanics without refactoring
-- **Separation of Concerns:** Simulation logic separate from rendering (enables WebGPU later)
+- **Separation of Concerns:** Simulation logic separate from rendering (PixiJS 8 with WebGPU/WebGL)
 - **Data-Oriented Design:** CPU cache-friendly, batch processing, minimal object allocation
+- **2D Graphics:** PixiJS 8 handles all rendering (WebGPU-accelerated sprite batching)
 
 **Core Principles:**
 - Entities are IDs (numbers, not objects)
@@ -775,17 +776,43 @@ Used by: Planets (construction queue)
 **Logic:**
 - **Spatial culling:** Only render entities visible on screen
 - **Z-sorting:** Sort entities by depth (background → foreground)
-- **Batch rendering:** Group entities by texture to minimize draw calls
+- **PixiJS Integration:** Update PixiJS sprites based on ECS component data
 - **Transform:** Convert world space to screen space based on camera
 - **Apply visual effects:** Team color tints, opacity for cloaking, damage flashes
 - **Render particles:** Engine trails, weapon fire, explosions
 
 **Performance Notes:**
 - **Critical for frame rate**
-- Use PixiJS sprite batching (MVP)
-- Future: WebGPU instanced rendering (draw 300 ships in 1 draw call)
+- Use PixiJS 8 sprite batching with WebGPU/WebGL renderer
+- Automatic renderer selection: WebGPU → WebGL2 → WebGL → Canvas2D
 - Frustum culling (don't render off-screen entities)
 - LOD (Level of Detail): Distant ships = simpler sprites
+
+**PixiJS 8 Integration:**
+```typescript
+// RenderSystem reads ECS data and updates PixiJS display objects
+const renderSystem = (world: World) => {
+  const entities = renderQuery(world);
+  for (let i = 0; i < entities.length; i++) {
+    const eid = entities[i];
+    
+    // Get or create PixiJS sprite for this entity
+    const sprite = getSpriteForEntity(eid);
+    
+    // Update sprite from ECS components
+    sprite.x = Position.x[eid];
+    sprite.y = Position.y[eid];
+    sprite.rotation = Rotation.angle[eid];
+    sprite.tint = TeamColor.color[eid];
+    sprite.alpha = Sprite.opacity[eid];
+    
+    // Add to PixiJS stage if not already added
+    if (!sprite.parent) {
+      pixiApp.stage.addChild(sprite);
+    }
+  }
+};
+```
 
 ---
 
@@ -1004,64 +1031,47 @@ worker.onmessage = (state) => {
 
 ---
 
-## ECS Library Recommendations
+## Selected ECS Library: bitECS
 
-### Option 1: **bitECS** (Recommended for MVP)
-**Pros:**
-- Extremely fast (SoA architecture)
-- Tiny bundle size (1KB)
-- TypeScript support
-- Battle-tested in production games
+**Chosen Library:** [bitECS](https://github.com/NateTheGreatt/bitECS)
 
-**Cons:**
-- Low-level API (more boilerplate)
+**Why bitECS:**
+- ✅ **Performance:** Structure-of-Arrays (SoA) architecture, cache-friendly
+- ✅ **Bundle Size:** 1KB minified (critical for web game)
+- ✅ **TypeScript:** Full TypeScript support
+- ✅ **Battle-Tested:** Used in production games (Hyperfy, Webaverse)
+- ✅ **Simple API:** Low learning curve, clear documentation
+- ✅ **No Magic:** Explicit, predictable, no hidden allocations
 
-**Example:**
+**Example Usage:**
 ```typescript
-import { createWorld, defineComponent, addEntity } from "bitecs";
+import { createWorld, defineComponent, addEntity, Types } from "bitecs";
 
+// Define components
 const Position = defineComponent({ x: Types.f32, y: Types.f32 });
 const Velocity = defineComponent({ dx: Types.f32, dy: Types.f32 });
 
+// Create world
 const world = createWorld();
+
+// Create entity
 const entity = addEntity(world);
 Position.x[entity] = 100;
 Position.y[entity] = 200;
+Velocity.dx[entity] = 10;
+Velocity.dy[entity] = 0;
+
+// Create system
+const movementSystem = (world, deltaTime) => {
+  const query = defineQuery([Position, Velocity]);
+  const entities = query(world);
+  for (let i = 0; i < entities.length; i++) {
+    const eid = entities[i];
+    Position.x[eid] += Velocity.dx[eid] * deltaTime;
+    Position.y[eid] += Velocity.dy[eid] * deltaTime;
+  }
+};
 ```
-
----
-
-### Option 2: **Miniplex** (TypeScript-First)
-**Pros:**
-- Beautiful TypeScript API
-- Easy to learn
-- Good developer experience
-
-**Cons:**
-- Slightly slower than bitECS (but still fast enough)
-
-**Example:**
-```typescript
-import { World } from "miniplex";
-
-const world = new World();
-const entity = world.add({
-  position: { x: 100, y: 200 },
-  velocity: { dx: 10, dy: 0 }
-});
-```
-
----
-
-### Option 3: **Becsy** (Modern, Rust-Inspired)
-**Pros:**
-- Similar to Bevy (popular Rust ECS)
-- Change detection built-in
-- Advanced query features
-
-**Cons:**
-- Larger bundle size
-- Fewer examples/community
 
 ---
 

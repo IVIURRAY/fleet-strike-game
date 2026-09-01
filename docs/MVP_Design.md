@@ -291,10 +291,13 @@ Based on TF2 archetypes, prioritize these for initial implementation:
 
 ### Technology Stack
 
-- **Engine:** TypeScript + PixiJS (2D rendering)
-- **Architecture:** ECS pattern
+- **Graphics:** PixiJS 8 (2D WebGPU/WebGL renderer)
+- **Architecture:** ECS pattern (bitECS library)
+- **Language:** TypeScript
 - **Networking:** WebSocket (1v1 multiplayer)
-- **State Management:** Data-driven ship definitions (JSON/TypeScript configs)
+- **State Management:** Data-driven ship definitions (TypeScript configs)
+- **Deployment:** Containerized services on Digital Ocean
+- **CI/CD:** GitHub Actions
 
 ---
 

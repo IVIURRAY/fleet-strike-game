@@ -1,6 +1,6 @@
 ## Description
 
-A real-time strategy galaxy-conquest autobattler.
+A **2D** real-time strategy galaxy-conquest autobattler.
 
 Build your galactic empire and crush anyone who stands in your way.
 
@@ -10,6 +10,7 @@ Expand your empire across the stars, discovering increasingly complex materials 
 
 Go head-to-head with your friends in multiplayer combat.
 
+- **2D Graphics:** Beautiful sprite-based visuals powered by PixiJS 8 (WebGPU/WebGL)
 - Logarithmic scale: manage your galactic empire while also witnessing individual dogfights
 - Exciting starship dogfighting
 - Economy management
@@ -75,10 +76,10 @@ Go head-to-head with your friends in multiplayer combat.
 
 ## ECS Architecture and PixiJS Rendering
 
-- Use an Entity Component System architecture to layer independent gameplay systems together.
-- PixiJS handles rendering while the ECS manages simulation state and behaviour.
+- Use an Entity Component System architecture (bitECS) to layer independent gameplay systems together.
+- PixiJS 8 handles 2D rendering with WebGPU/WebGL acceleration while the ECS manages simulation state and behavior.
 - Ships, planets, moons, projectiles, satellites, and structures are represented as entities.
-- Components contain data, while systems handle behaviour such as movement, targeting, combat, production, and rendering.
+- Components contain data, while systems handle behavior such as movement, targeting, combat, production, and rendering.
 
 ## TypeScript Domain Models and Data-Driven Ship Definitions
 

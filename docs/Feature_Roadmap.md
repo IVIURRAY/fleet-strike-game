@@ -65,10 +65,12 @@ This document organizes all game features into implementation phases, from MVP t
 - ✅ Waypoint marker visual
 
 ### Technical
-- ✅ ECS architecture
-- ✅ TypeScript + PixiJS rendering
+- ✅ ECS architecture (bitECS)
+- ✅ TypeScript + PixiJS 8 (2D WebGPU/WebGL rendering)
 - ✅ 1v1 WebSocket multiplayer
-- ✅ Data-driven unit definitions (JSON/TypeScript)
+- ✅ Data-driven unit definitions (TypeScript)
+- ✅ Containerized deployment (Docker + Digital Ocean)
+- ✅ CI/CD pipeline (GitHub Actions)
 
 ### Win Condition
 - ✅ Control all 7 main planets to win
@@ -229,11 +231,11 @@ This document organizes all game features into implementation phases, from MVP t
 - 🔲 Cinematic camera modes
 
 ### Performance Optimization
-- 🔲 Handle 1000+ ships simultaneously
-- 🔲 Spatial partitioning for collision detection
-- 🔲 LOD (level of detail) system
-- 🔲 Occlusion culling
-- 🔲 WebGL optimization for large battles
+- 🔲 Handle 1000+ ships simultaneously (Phase 3+)
+- 🔲 Spatial partitioning for collision detection (already in MVP plan)
+- 🔲 LOD (level of detail) system (different sprites at different zoom levels)
+- 🔲 Occlusion culling (don't render off-screen)
+- 🔲 WebGPU compute shaders for particle systems (Phase 3+)
 
 ### Narrative & World-Building
 - 🔲 Lore codex (explain the galactic civil war)
@@ -300,8 +302,8 @@ This document organizes all game features into implementation phases, from MVP t
 - Multiple game modes
 - Competitive features
 
-### Won't Have (Unless Proven Necessary)
-- 3D graphics (stick to 2D for performance)
+**Won't Have (Unless Proven Necessary)
+- 3D graphics (this is a 2D game - sprite-based with PixiJS 8)
 - Single-player campaign (multiplayer first)
 - Mobile support (PC/web first)
 - VR (way out of scope)

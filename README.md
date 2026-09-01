@@ -1,6 +1,12 @@
 # Fleet Strike
 
-A server-authoritative 1v1 naval auto-battler built with PixiJS 8, TypeScript, Node, and WebSockets.
+A server-authoritative 1v1 naval auto-battler built with PixiJS 8, TypeScript, Node.js, WebSockets, and bitECS.
+
+**Tech Stack:**
+- **Frontend:** TypeScript, PixiJS 8 (2D WebGPU/WebGL), bitECS
+- **Backend:** Node.js, Express, WebSocket
+- **Infrastructure:** Docker, Digital Ocean, Terraform
+- **CI/CD:** GitHub Actions
 
 ## Run locally
 

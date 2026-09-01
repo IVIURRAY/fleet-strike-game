@@ -293,62 +293,57 @@ Legend:
 ### MVP Implementation (Phase 1)
 
 **Single Strategic View:**
-- Top-down view of entire 7-planet chain
+- Top-down 2D view of entire 7-planet chain
 - All planets visible simultaneously
-- Ships rendered as icons/sprites (no individual detail yet)
+- Ships rendered as sprites (PixiJS 8 with WebGPU/WebGL acceleration)
 - Zoom in/out to focus on specific battles
 - Camera pan follows selected fleet
 
 **Technical Approach:**
-- 2D rendering with PixiJS
-- Sprite-based units
-- Particle effects for weapons fire
-- Simple physics for ship movement
+- 2D rendering with PixiJS 8 (WebGPU/WebGL renderer)
+- Sprite-based units with particle effects
+- Particle effects for weapons fire and explosions
+- Simple 2D physics for ship movement
 
 ---
 
-### Phase 4 Vision (Logarithmic Zoom)
+### Phase 4 Vision (Logarithmic Zoom - Future)
 
 **Multi-Scale Rendering (inspired by Google Maps):**
 
+Note: This is an **aspirational future feature**, not part of the MVP. The core game remains a 2D sprite-based game.
+
 #### Level 1: Galaxy View
-- Entire map visible
-- Planets shown as large nodes
+- Entire map visible (2D strategic view)
+- Planets shown as large sprites
 - Fleet concentrations as colored clouds
 - Strategic overview
 - Trade lanes highlighted
 
 #### Level 2: Sector View  
 - 2-3 planets visible
-- Ships visible as groups
+- Ships visible as sprite groups
 - Individual icons for capital ships
 - Battle lines forming
 - Tactical positioning visible
 
 #### Level 3: Planet View
 - Single planet + moons in focus
-- Individual ships rendered
+- Individual ships rendered as detailed sprites
 - Building details visible
 - Moon orbital positions clear
 - Close tactical view
 
 #### Level 4: Engagement View
 - Zoomed into specific fleet battle
-- Individual ship models with detail
-- Weapon fire visible (tracers, lasers, explosions)
+- Individual ship sprites with enhanced detail
+- Weapon fire visible (particle effects, tracers, lasers, explosions)
 - Dogfighting maneuvers animated
 - Cinematic battle view
 
-#### Level 5: Cockpit View (Cinematic)
-- First-person view from selected ship
-- Full 3D rendering
-- See your fleet from pilot perspective
-- Not for gameplay, for spectacle
-- Replay mode feature
-
 **Seamless Transition:**
 - Scroll wheel to zoom in/out
-- Level of detail scales automatically
+- Level of detail scales automatically (sprite switching)
 - No loading screens
 - Smooth interpolation between zoom levels
 
@@ -551,10 +546,10 @@ Each planet must be instantly recognizable:
 ### Performance Optimization
 
 **Rendering:**
-- Sprite batching for hundreds of ships
-- LOD (Level of Detail) scaling based on zoom
-- Particle pooling for weapon effects
-- Occlusion culling (don't render off-screen)
+- Sprite batching for hundreds of ships (PixiJS 8 optimization)
+- LOD (Level of Detail) scaling based on zoom (swap sprite assets)
+- Particle pooling for weapon effects (performance optimization)
+- Occlusion culling (don't render off-screen entities)
 
 **Pathfinding:**
 - Simple linear paths in MVP (low CPU cost)
@@ -562,9 +557,9 @@ Each planet must be instantly recognizable:
 - Only recalculate on waypoint change
 
 **Physics:**
-- Lightweight 2D physics (velocity + position)
-- Collision detection for ships near planets only
-- Simplified hitboxes
+- Lightweight 2D physics (velocity + position updates)
+- Collision detection for ships near planets only (spatial partitioning)
+- Simplified hitboxes (circle or rectangle colliders)
 
 ---
 
